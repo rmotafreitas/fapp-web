@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Back to Fapp</title><link rel="stylesheet" href="../style.css">
+</head>
+<body><main>
+<h1>Returning to Fapp…</h1>
+<p>Your bank approved access. This page hands the result back to the app.</p>
+<div class="card">
+<a class="btn" id="open" href="fapp://bank-callback">Open Fapp</a>
+<button class="btn secondary" id="copy" type="button">Copy this address</button>
+<p id="hint">If the app doesn't open, copy this address and paste it into Fapp → Settings → "Finish connecting".</p>
+<code id="addr"></code>
+</div>
+</main>
+<script>
+(function () {
+  var target = 'fapp://bank-callback' + location.search;
+  document.getElementById('open').href = target;
+  document.getElementById('addr').textContent = location.href;
+  document.getElementById('copy').addEventListener('click', function () {
+    navigator.clipboard.writeText(location.href).then(function () {
+      document.getElementById('copy').textContent = 'Copied';
+    }, function () {});
+  });
+  if (location.search) location.replace(target);
+})();
+</script>
+</body>
+</html>
